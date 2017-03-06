@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        local pacman
+    </title>
+    <style>
+        #playground {
+            width: 750px;
+            height: 750px;
+            background-color: darkblue;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .rock {
+            width: 30px;
+            height: 30px;
+            background-color: maroon;
+            position: absolute;
+        }
+
+        #rock-01 {
+            left: 2px;
+            top: 2px;
+            height: 746px;
+        }
+
+        #rock-02 {
+            right: 2px;
+            top: 2px;
+            height: 746px;
+        }
+
+        #rock-03 {
+            right: 2px;
+            top: 2px;
+            width: 746px;
+        }
+
+        #rock-04 {
+            right: 2px;
+            bottom: 2px;
+            width: 746px;
+        }
+
+        #rock-05 {
+            right: 658px;
+            top: 62px;
+            height: 90px;
+        }
+
+        #rock-06 {
+            right: 538px;
+            top: 62px;
+            width: 120px;
+        }
+
+        #rock-07 {
+            right: 92px;
+            top: 62px;
+            width: 120px;
+        }
+
+        #rock-08 {
+            right: 62px;
+            top: 62px;
+            height: 90px;
+        }
+
+        #rock-09 {
+            right: 658px;
+            top: 598px;
+            height: 90px;
+        }
+
+        #rock-10 {
+            right: 62px;
+            top: 598px;
+            height: 90px;
+        }
+        #rock-11 {
+            right: 538px;
+            top: 658px;
+            width: 120px;
+        }
+        #rock-12 {
+            right: 93px;
+            top: 658px;
+            width: 120px;
+        }
+        #rock-13 {
+            right: 62px;
+            top: 478px;
+            height: 90px;
+        }
+        #rock-14 {
+            right: 62px;
+            top: 182px;
+            height: 90px;
+        }
+
+        #pacman {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 15px;
+            width: 25px;
+            height: 25px;
+            border: 1px solid yellow;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="playground">
+    <div class="rock" id="rock-01"></div>
+    <div class="rock" id="rock-02"></div>
+    <div class="rock" id="rock-03"></div>
+    <div class="rock" id="rock-04"></div>
+    <div class="rock" id="rock-05"></div>
+    <div class="rock" id="rock-06"></div>
+    <div class="rock" id="rock-07"></div>
+    <div class="rock" id="rock-08"></div>
+    <div class="rock" id="rock-09"></div>
+    <div class="rock" id="rock-10"></div>
+    <div class="rock" id="rock-11"></div>
+    <div class="rock" id="rock-12"></div>
+    <div class="rock" id="rock-13"></div>
+    <div class="rock" id="rock-14"></div>
+    <div class="rock" id="rock-15"></div>
+    <div class="rock" id="rock-16"></div>
+    <div class="rock" id="rock-17"></div>
+    <div id="pacman"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        var pacman = $('#pacman');
+
+        $('body').on('keydown', function (ev) {
+            var offset = pacman.offset();
+            var speed = 5;
+
+            if (ev.keyCode === 39) {
+                var collision = false;
+
+                $('.rock').each(function () {
+                    if (offset.top <= $(this).offset().top + $(this).width() &&
+                        offset.top + pacman.width() >= $(this).offset().top &&
+                        offset.left <=  $(this).offset().left + $(this).height() &&
+                        pacman.height() + offset.left >= $(this).offset().left) {
+                        console.log('Collision!');
+                    }
+
+                });
+
+                if (collision === false) {
+                    pacman.offset({
+                        top: offset.top,
+                        left: offset.left + speed
+                    });
+                }
+            }
+
+            if (ev.keyCode === 37) {
+                pacman.offset({
+                    top: offset.top,
+                    left: offset.left - speed
+                });
+            }
+            if (ev.keyCode === 38) {
+                pacman.offset({
+                    top: offset.top - speed,
+                    left: offset.left
+                })
+            }
+            if (ev.keyCode === 40) {
+                pacman.offset({
+                    top: offset.top + speed,
+                    left: offset.left
+                })
+            }
+            var left = offset.left - 12.5;
+            var right = offset.left + 12.5;
+            var bottom = offset.top + 12.5;
+            var top = offset.top - 12.5;
+
+
+        });
+    });
+</script>
+</body>
+</html>
